@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wireframe to HTML/CSS</title>
+    <link rel="stylesheet" href="src/style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script
+      src="https://kit.fontawesome.com/d1ee2cded1.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="container">
+      <ul class="favorites" id="favorites">
+        <li class="city-one">Paris</li>
+        <li class="city-two">Lisbon</li>
+        <li class="city-three">Sydney</li>
+        <li class="city-four">San Francisco</li>
+        <li class="city-five">Monterrey</li>
+        <li class="edit"><i class="fas fa-pencil-alt"></i></li>
+      </ul>
+      <div class="search-container">
+        <form id="search-form">
+          <input
+            type="text"
+            placeholder="search..."
+            size="25px"
+            class="search-city"
+            id = "search-city"
+          />
+          <button type="submit" class="search-button">
+            <i class="fa fa-search"></i>
+          </button>
+          <button type="button" class="location-button" id="location-button">
+            <i class="fas fa-map-marker-alt"></i>
+          </button>
+          <button type="button" class="plus-icon" id="plus-icon">
+            <i class="fas fa-plus"></i>
+          </button>
+        </form>
+      </div>
+      <div class="one-day-temp-container">
+        <p class="city" id="city">Monterrey</p>
+        <div class="principal-data" id="principal-date">
+          <span class="main-day">Monday</span>,
+          <span class="main-month">June </span
+          ><span class="main-number-day">28</span>,
+          <span class="main-hour">16:00</span>
+        </div>
+        <div class="row midle-info">
+          <div class="col-sm-4">
+            <h1 class="main-temp"> <span class="temperature" id="main-temp">26</span>° <span class="units unit-button" id="principal-unit">C</span></h1>
+          </div>
+          <div class="col-sm-4">
+            <div class="row">
+              <span class="icon-temp"><i class="fas fa-cloud-sun" id="icon-temp"></i></span>
+            </div>
+            <div class="row">
+              <span class="condition">Partly Cloudy</span>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="row">
+              <p class="wind"><i class="fas fa-wind"></i> <span class="main-wind">8</span>km/h</p>
+            </div>
+            <div class="row">
+              <p class="precipitation"><i class="fas fa-tint"></i> <i class="fas fa-percentage percentage"></i> <span class="humidity"> 69</span>%</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="seven-day-container">
+        <div class="sev-day-rowone">
+          <div class="row">
+            <div class="col-sm-2">
+              <div class="row">
+                <p class="day-two days">TUE</p>
+              </div>
+              <div class="row">
+                <span class="other-icons"><i class="fas fa-cloud icon-two"></i></span>
+              </div>
+              <div class="row">
+                <p class="temp-two"> <span class="temperature all-temps">30</span>° <span class="units" id="unit-two">C</span></p>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="row">
+                <p class="day-three days">WED</p>
+              </div>
+              <div class="row">
+                <span class="other-icons"><i class="fas fa-sun icon-three"></i></span>
+              </div>
+              <div class="row">
+                <p class="temp-three"> <span class="temperature all-temps">31</span>° <span class="units" id="unit-three">C</span></p>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="row">
+                <p class="day-four days">THU</p>
+              </div>
+              <div class="row">
+                <span class="other-icons"><i class="fas fa-cloud-sun-rain icon-four"></i></span>
+                
+              </div>
+              <div class="row">
+                <p class="temp-four"> <span class="temperature all-temps">34</span>°<span class="units" id="unit-four">C</span></p>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="row">
+                <p class="day-five days">FRI</p>
+              </div>
+              <div class="row">
+                <span class="other-icons"><i class="fas fa-cloud-showers-heavy icon-five"></i></span>
+              </div>
+              <div class="row">
+                <p class="temp-five"> <span class="temperature all-temps">32</span>° <span class="units" id="unit-five">C</span></p>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="row">
+                <p class="day-six days">SAT</p>
+              </div>
+              <div class="row">
+                <span class="other-icons"><i class="far fa-snowflake icon-six"></i></span>
+              </div>
+              <div class="row">
+                <p class="temp-six"> <span class="temperature all-temps">-10</span>° <span class="units" id="unit-six">C</span></p>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="row">
+                <p class="day-seven days">SUN</p>
+              </div>
+              <div class="row">
+                <span class="other-icons"><i class="fas fa-cloud-rain icon-seven"></i></span>
+              </div>
+              <div class="row">
+                <p class="temp-seven"> <span class="temperature all-temps">28</span>° <span class="units" id="unit-seven">C</span></p>
+              </div>
+            </div>  
+          </div>
+        </div>
+      </div>
+      <p class="footer">Coded by <a href="https://www.shecodes.io/students/333-ana-sala" target="_blank" class="coder">Ana Sala</a></p>
+    <script src="src/main.js"></script>
+  </body>
+</html>
