@@ -241,7 +241,7 @@ li[class^="city-"]:hover,
   color: rgb(169, 169, 169);
   text-shadow: none;
   font-family: monospace;
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 .coder {
