@@ -7,7 +7,7 @@ document.getElementById("plus-icon").addEventListener("click", dropDown);
 let city = "Monterrey";
 
 
-let newDate = new Date();
+let newDate = null; //actualizado
 let roundMainTemp = null;
 let actualDay = null;
 let actualDays = null;
@@ -43,28 +43,8 @@ let otherConditionsIcons = [
   `<i class="fas fa-cloud-showers-heavy"></i>`,
   `<i class="fas fa-cloud-rain"></i>`];
 
-function updatePrincipalData(syncDate) {
-  actualYear = syncDate.getFullYear();
-  actualDate = syncDate.getDate();
-  actualHour = syncDate.getHours();
-  actualMinutes = syncDate.getMinutes();
 
-  if (actualHour < 10) {
-    actualHour = `0${actualHour}`;
-  }
-  if (actualMinutes < 10) {
-    actualMinutes = `0${actualMinutes}`;
-  }
-  let weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  let yearMonths = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "Dicember"];
-  actualDay = weekDays[syncDate.getDay()];
-  actualMonth = yearMonths[syncDate.getMonth()];
-  let divPrincipalDate = document.querySelector("#principal-date");
-  divPrincipalDate.innerHTML = `${actualDay}, ${actualMonth} ${actualDate} ${actualYear}, ${actualHour}:${actualMinutes}`;
-  updateOtherDays();
-}
-
-let refreshDate = updatePrincipalData(newDate);
+//let refreshDate = updateMainTime(newDate);
 
 function updateOtherDays() {
   let otherActualDay = newDate.getDay();
@@ -206,17 +186,41 @@ function showSixDayTemp(response) {
   }
 }
 
+//
 function temporaryInfo(response) {
   let tempElement = document.querySelector("#main-temp");
-  tempElement.innerHTML = Math.round(response.data.main.temp);
   let cityElement = document.querySelector("#city");
-  cityElement.innerHTML = response.data.name;
   let windElement = document.querySelector(".main-wind");
-  windElement.innerHTML = Math.round(response.data.wind.speed);
   let humidityElement = document.querySelector(".humidity");
-  humidityElement.innerHTML = response.data.main.humidity;
   let descriptionElement = document.querySelector(".condition");
+  let timeElement = document.querySelector("#principal-date");
+  tempElement.innerHTML = Math.round(response.data.main.temp);
+  cityElement.innerHTML = response.data.name;
+  windElement.innerHTML = Math.round(response.data.wind.speed);
+  humidityElement.innerHTML = response.data.main.humidity;
   descriptionElement.innerHTML = response.data.weather[0].description;
+  timeElement.innerHTML = updateMainTime(/*response.data.dt * 1000*/);
+}
+
+function updateMainTime(/*syncDate*/) {
+  newDate = new Date(/*syncDate*/);
+  actualYear = newDate.getFullYear();
+  actualDate = newDate.getDate();
+  actualHour = newDate.getHours();
+  actualMinutes = newDate.getMinutes();
+
+  if (actualHour < 10) {
+    actualHour = `0${actualHour}`;
+  }
+  if (actualMinutes < 10) {
+    actualMinutes = `0${actualMinutes}`;
+  }
+  let weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  let yearMonths = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "Dicember"];
+  actualDay = weekDays[newDate.getDay()];
+  actualMonth = yearMonths[newDate.getMonth()];
+  return `${actualDay}, ${actualMonth} ${actualDate} ${actualYear}, ${actualHour}:${actualMinutes}`;
+  //updateOtherDays();
 }
 
 let clickCelsius = document.querySelector("#principal-unit");
