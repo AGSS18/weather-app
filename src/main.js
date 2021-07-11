@@ -43,7 +43,7 @@ let otherConditionsIcons = [
 
 //let refreshDate = updateMainTime(newDate);
 
-function updateOtherDays() {
+/*function updateOtherDays() {
   let otherActualDay = newDate.getDay();
   let allDays = document.querySelectorAll(".days");
   for (let i = 0; i < allDays.length; i++) {
@@ -53,33 +53,6 @@ function updateOtherDays() {
     }
     let shortDays = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
     allDays[i].innerHTML = shortDays[otherActualDay];
-  }
-}
-
-
-
-function changeUnits() {
-  let actualUnits = document.querySelector("#principal-unit").innerHTML;
-  if (actualUnits === "C") {
-    let unitsElements = document.querySelectorAll(".units");
-    for (let i = 0; i < unitsElements.length; i++) {
-      unitsElements[i].innerHTML = "F";
-    }
-    let tempElements = document.querySelectorAll(".temperature");
-    for (let i = 0; i < tempElements.length; i++) {
-      let operation = Math.round((tempElements[i].innerHTML * 9 / 5) + 32);
-      tempElements[i].innerHTML = operation;
-    }
-  } else {
-    let unitsElements = document.querySelectorAll(".units");
-    for (let i = 0; i < unitsElements.length; i++) {
-      unitsElements[i].innerHTML = "C";
-    }
-    let tempElements = document.querySelectorAll(".temperature");
-    for (let i = 0; i < tempElements.length; i++) {
-      let operation = Math.round((tempElements[i].innerHTML - 32) * 5 / 9);
-      tempElements[i].innerHTML = operation;
-    }
   }
 }
 
@@ -155,10 +128,14 @@ function showSixDayTemp(response) {
       }
     }
   }
-}
+}*/
 
 // actualizado
 function temporaryInfo(response) {
+  let resetUnits = document.querySelectorAll(".units");
+  for (let i = 0; i < resetUnits.length; i++) {
+    resetUnits[i].innerHTML = "C";
+  }
   let tempElement = document.querySelector("#main-temp");
   let cityElement = document.querySelector("#city");
   let windElement = document.querySelector(".main-wind");
@@ -166,7 +143,10 @@ function temporaryInfo(response) {
   let descriptionElement = document.querySelector(".condition");
   let timeElement = document.querySelector(".main-day");
   let iconElement = document.querySelector(".icon-temp");
-  tempElement.innerHTML = Math.round(response.data.main.temp);
+
+  celsiusTemp = response.data.main.temp;
+
+  tempElement.innerHTML = Math.round(celsiusTemp);
   cityElement.innerHTML = response.data.name;
   windElement.innerHTML = Math.round(response.data.wind.speed);
   humidityElement.innerHTML = response.data.main.humidity;
@@ -206,7 +186,7 @@ function updateMainIcon(response) {
       return otherConditionsIcons[position];
     }
   }
-  //getSixDayUrl(lat, lon);
+  //getSixDayUrl();
 }
 
 function searchCity(city) {
@@ -221,17 +201,42 @@ function searchForm(event) {
   searchCity(valueSearch.value);
 }
 
-let city = null;
-searchCity("Monterrey");
+function changeUnits(event) {
+  event.preventDefault();
+  let actualUnits = document.querySelector("#principal-unit").innerHTML;
+  if (actualUnits === "C") {
+    let unitsElements = document.querySelectorAll(".units");
+    for (let i = 0; i < unitsElements.length; i++) {
+      unitsElements[i].innerHTML = "F";
+    }
+    let tempElements = document.querySelectorAll(".temperature");
+    for (let i = 0; i < tempElements.length; i++) {
+      celsiusOperation = Math.round((celsiusTemp * 9 / 5) + 32);
+      tempElements[i].innerHTML = celsiusOperation;
+    }
+  } else {
+    let unitsElements = document.querySelectorAll(".units");
+    for (let i = 0; i < unitsElements.length; i++) {
+      unitsElements[i].innerHTML = "C";
+    }
+    let tempElements = document.querySelectorAll(".temperature");
+    for (let i = 0; i < tempElements.length; i++) {
+      let fahrenheitOperation = Math.round((celsiusOperation - 32) * 5 / 9);
+      tempElements[i].innerHTML = fahrenheitOperation;
+    }
+  }
+}
 
-let clickCelsius = document.querySelector("#principal-unit");
+let celsiusTemp = null;
+let celsiusOperation = null;
 
-clickCelsius.addEventListener("click", changeUnits);
-
-let clickCurrentLocation = document.querySelector("#location-button");
-clickCurrentLocation.addEventListener("click", showCurrentTemp);
-
-
+let linkUnitsChange = document.querySelector("#principal-unit");
+linkUnitsChange.addEventListener("click", changeUnits);
 
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", searchForm);
+
+searchCity("Monterrey");
+
+//let clickCurrentLocation = document.querySelector("#location-button");
+//clickCurrentLocation.addEventListener("click", showCurrentTemp);

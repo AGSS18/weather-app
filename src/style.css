@@ -143,16 +143,19 @@ li[class^="city-"]:hover,
   position: relative;
   left: 10px;
   margin-top: 10px;
+  text-decoration: none;
 }
 
 .unit-button {
   transition: all 200ms ease-in-out;
-  text-decoration: underline #ccc;
+  text-decoration: none;
+  color: white;
 }
 
 .unit-button:hover {
   color: #ccc;
   cursor: pointer;
+  text-decoration: underline;
 }
 
 .icon-temp {
