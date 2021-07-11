@@ -117,20 +117,16 @@ function changeUnits(event) {
       unitsElements[i].innerHTML = "F";
     }
     let tempElements = document.querySelectorAll(".temperature");
-    for (let i = 0; i < tempElements.length; i++) {
-      celsiusOperation = Math.round((celsiusTemp * 9 / 5) + 32);
-      tempElements[i].innerHTML = celsiusOperation;
-    }
+    celsiusOperation = Math.round((celsiusTemp * 9 / 5) + 32);
+    tempElements.innerHTML = celsiusOperation;
   } else {
     let unitsElements = document.querySelectorAll(".units");
     for (let i = 0; i < unitsElements.length; i++) {
       unitsElements[i].innerHTML = "C";
     }
     let tempElements = document.querySelectorAll(".temperature");
-    for (let i = 0; i < tempElements.length; i++) {
-      let fahrenheitOperation = Math.round((celsiusOperation - 32) * 5 / 9);
-      tempElements[i].innerHTML = fahrenheitOperation;
-    }
+    let fahrenheitOperation = Math.round((celsiusOperation - 32) * 5 / 9);
+    tempElements.innerHTML = fahrenheitOperation;
   }
 }
 
