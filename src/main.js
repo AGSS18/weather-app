@@ -139,20 +139,6 @@ function showWeather(response) {
   //updateMainIcon(condition, latitud, longitude);
 }
 
-function updateMainIcon(response, lat, lon) {
-  let mainCondition = response;
-  if (multipleConditions.includes(mainCondition)) {
-    let changeIcon = document.querySelector(".icon-temp");
-    changeIcon.innerHTML = `<i class="fas fa-smog"></i>`;
-  } else {
-    if (otherConditions.includes(mainCondition)) {
-      let position = otherConditions.indexOf(mainCondition);
-      let changeIcon = document.querySelector(".icon-temp");
-      changeIcon.innerHTML = otherConditionsIcons[position];
-    }
-  }
-  getSixDayUrl(lat, lon);
-}
 
 function getSixDayUrl(lat, lon) {
   let sixDaysUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely,alerts&appid=${apiKey}&units=metric`;
@@ -186,24 +172,26 @@ function showSixDayTemp(response) {
   }
 }
 
-//
+// actualizado
 function temporaryInfo(response) {
   let tempElement = document.querySelector("#main-temp");
   let cityElement = document.querySelector("#city");
   let windElement = document.querySelector(".main-wind");
   let humidityElement = document.querySelector(".humidity");
   let descriptionElement = document.querySelector(".condition");
-  let timeElement = document.querySelector("#principal-date");
+  let timeElement = document.querySelector(".main-day");
+  let iconElement = document.querySelector(".icon-temp");
   tempElement.innerHTML = Math.round(response.data.main.temp);
   cityElement.innerHTML = response.data.name;
   windElement.innerHTML = Math.round(response.data.wind.speed);
   humidityElement.innerHTML = response.data.main.humidity;
   descriptionElement.innerHTML = response.data.weather[0].description;
-  timeElement.innerHTML = updateMainTime(/*response.data.dt * 1000*/);
+  timeElement.innerHTML = updateMainTime(response.data.dt * 1000);
+  iconElement.innerHTML = updateMainIcon(response.data.weather[0].main);
 }
 
-function updateMainTime(/*syncDate*/) {
-  newDate = new Date(/*syncDate*/);
+function updateMainTime(syncDate) {
+  newDate = new Date(syncDate);
   actualYear = newDate.getFullYear();
   actualDate = newDate.getDate();
   actualHour = newDate.getHours();
@@ -221,6 +209,18 @@ function updateMainTime(/*syncDate*/) {
   actualMonth = yearMonths[newDate.getMonth()];
   return `${actualDay}, ${actualMonth} ${actualDate} ${actualYear}, ${actualHour}:${actualMinutes}`;
   //updateOtherDays();
+}
+
+function updateMainIcon(response) {
+  if (multipleConditions.includes(response)) {
+    return `<i class="fas fa-smog"></i>`;
+  } else {
+    if (otherConditions.includes(response)) {
+      let position = otherConditions.indexOf(response);
+      return otherConditionsIcons[position];
+    }
+  }
+  //getSixDayUrl(lat, lon);
 }
 
 let clickCelsius = document.querySelector("#principal-unit");
