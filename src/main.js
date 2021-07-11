@@ -43,18 +43,7 @@ let otherConditionsIcons = [
 
 //let refreshDate = updateMainTime(newDate);
 
-/*function updateOtherDays() {
-  let otherActualDay = newDate.getDay();
-  let allDays = document.querySelectorAll(".days");
-  for (let i = 0; i < allDays.length; i++) {
-    otherActualDay = otherActualDay + 1;
-    if (otherActualDay === 7) {
-      otherActualDay = 0;
-    }
-    let shortDays = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
-    allDays[i].innerHTML = shortDays[otherActualDay];
-  }
-}
+/*
 
 function showCurrentTemp() {
   navigator.geolocation.getCurrentPosition(showPosition);
@@ -153,6 +142,19 @@ function temporaryInfo(response) {
   descriptionElement.innerHTML = response.data.weather[0].description;
   timeElement.innerHTML = updateMainTime(response.data.dt * 1000);
   iconElement.innerHTML = updateMainIcon(response.data.weather[0].main);
+  pruebaUno();
+  pruebaDos();
+  console.log("funciona3");
+}
+
+function pruebaUno() {
+  console.log("funciona1");
+  return
+}
+
+function pruebaDos() {
+  console.log("funciona2");
+  return
 }
 
 function updateMainTime(syncDate) {
@@ -173,8 +175,8 @@ function updateMainTime(syncDate) {
   let yearMonths = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "Dicember"];
   actualDay = weekDays[newDate.getDay()];
   actualMonth = yearMonths[newDate.getMonth()];
+  updateOtherDays(newDate.getDay());
   return `${actualDay}, ${actualMonth} ${actualDate} ${actualYear}, ${actualHour}:${actualMinutes}`;
-  //updateOtherDays();
 }
 
 function updateMainIcon(response) {
@@ -225,6 +227,20 @@ function changeUnits(event) {
       tempElements[i].innerHTML = fahrenheitOperation;
     }
   }
+}
+
+function updateOtherDays(day) {
+  let allDays = document.querySelectorAll(".days");
+  for (let i = 0; i < allDays.length; i++) {
+    day = day + 1;
+    if (day === 7) {
+      day = 0;
+    }
+    let shortDays = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+    console.log(shortDays[day]);
+    allDays[i].innerHTML = shortDays[day];
+  }
+  return
 }
 
 let celsiusTemp = null;
