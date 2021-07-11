@@ -116,7 +116,7 @@ function changeUnits(event) {
     for (let i = 0; i < unitsElements.length; i++) {
       unitsElements[i].innerHTML = "F";
     }
-    let tempElements = document.querySelectorAll(".temperature");
+    let tempElements = document.querySelector("#main-temp");
     celsiusOperation = Math.round((celsiusTemp * 9 / 5) + 32);
     tempElements.innerHTML = celsiusOperation;
   } else {
@@ -124,7 +124,7 @@ function changeUnits(event) {
     for (let i = 0; i < unitsElements.length; i++) {
       unitsElements[i].innerHTML = "C";
     }
-    let tempElements = document.querySelectorAll(".temperature");
+    let tempElements = document.querySelector("#main-temp");
     let fahrenheitOperation = Math.round((celsiusOperation - 32) * 5 / 9);
     tempElements.innerHTML = fahrenheitOperation;
   }
