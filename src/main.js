@@ -4,9 +4,6 @@ function dropDown() {
 
 document.getElementById("plus-icon").addEventListener("click", dropDown);
 
-let city = "Monterrey";
-
-
 let newDate = null; //actualizado
 let roundMainTemp = null;
 let actualDay = null;
@@ -59,19 +56,7 @@ function updateOtherDays() {
   }
 }
 
-function searchForm(Event) {
-  Event.preventDefault();
-  let valueSearch = document.querySelector("#search-city");
-  city = valueSearch.value;
-  let updateCity = document.querySelector("#city");
-  updateCity.innerHTML = city;
-  //apiCityUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityValue}&appid=${apiKey}&units=metric`;
-  //axios.get(apiCityUrl).then(showWeather);
-  showWeather();
-}
 
-let onlyForm = document.querySelector("#search-form");
-onlyForm.addEventListener("submit", searchForm);
 
 function changeUnits() {
   let actualUnits = document.querySelector("#principal-unit").innerHTML;
@@ -203,6 +188,7 @@ function updateMainTime(syncDate) {
   if (actualMinutes < 10) {
     actualMinutes = `0${actualMinutes}`;
   }
+
   let weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   let yearMonths = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "Dicember"];
   actualDay = weekDays[newDate.getDay()];
@@ -223,6 +209,21 @@ function updateMainIcon(response) {
   //getSixDayUrl(lat, lon);
 }
 
+function searchCity(city) {
+  let apiKey = `2a2676887289368652de121a9db03637`;
+  let apiCityUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(apiCityUrl).then(temporaryInfo);
+}
+
+function searchForm(event) {
+  event.preventDefault();
+  let valueSearch = document.querySelector("#search-city");
+  searchCity(valueSearch.value);
+}
+
+let city = null;
+searchCity("Monterrey");
+
 let clickCelsius = document.querySelector("#principal-unit");
 
 clickCelsius.addEventListener("click", changeUnits);
@@ -230,7 +231,7 @@ clickCelsius.addEventListener("click", changeUnits);
 let clickCurrentLocation = document.querySelector("#location-button");
 clickCurrentLocation.addEventListener("click", showCurrentTemp);
 
-let apiKey = `2a2676887289368652de121a9db03637`;
-let apiCityUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
-axios.get(apiCityUrl).then(temporaryInfo);
+
+let form = document.querySelector("#search-form");
+form.addEventListener("submit", searchForm);
