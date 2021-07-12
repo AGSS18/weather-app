@@ -221,25 +221,26 @@ li[class^="city-"]:hover,
 .day-six,
 .day-seven {
   font-size: 18px;
-  padding-top: 5px;
+  padding-top: 10px;
   margin-bottom: 0px;
 }
 
 .other-icons {
-  font-size: 38px;
-  margin-bottom: 0px;
-  margin-top: 0px;
+  font-size: 40px;
+  margin: 5px 0;
 }
 
-.max,
-.min {
-  font-size: 11px;
+.max-min-temp {
+  margin-bottom: 10px;
 }
 
-.max-temp,
 .min-temp {
-  font-size: 12px;
-  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.max-temp {
+  font-weight: 600;
+  font-size: 16px;
 }
 
 .footer {
