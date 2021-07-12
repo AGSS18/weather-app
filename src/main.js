@@ -29,6 +29,7 @@ let multipleConditions = [
 let otherConditions = [
   "Clear",
   "Clouds",
+  "Thunderstorm",
   "Snow",
   "Drizzle",
   "Rain"];
@@ -36,11 +37,13 @@ let otherConditions = [
 let otherConditionsIcons = [
   `<i class="fas fa-sun"></i>`,
   `<i class="fas fa-cloud"></i>`,
+  `<i class="fas fa-cloud-showers-heavy"></i>`,
   `<i class="fas fa-snowflake"></i>`,
   `<i class="fas fa-cloud-showers-heavy"></i>`,
   `<i class="fas fa-cloud-rain"></i>`];
 
 function temporaryInfo(response) {
+  console.log(response);
   let resetUnits = document.querySelectorAll(".units");
   for (let i = 0; i < resetUnits.length; i++) {
     resetUnits[i].innerHTML = "C";
@@ -62,6 +65,7 @@ function temporaryInfo(response) {
   descriptionElement.innerHTML = response.data.weather[0].description;
   timeElement.innerHTML = updateMainTime(response.data.dt * 1000);
   iconElement.innerHTML = updateMainIcon(response.data.weather[0].main);
+  sixDayApi(response.data.coord);
 }
 
 function updateMainTime(syncDate) {
@@ -82,7 +86,9 @@ function updateMainTime(syncDate) {
   let yearMonths = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "Dicember"];
   actualDay = weekDays[newDate.getDay()];
   actualMonth = yearMonths[newDate.getMonth()];
+
   updateOtherDays(newDate.getDay());
+
   return `${actualDay}, ${actualMonth} ${actualDate} ${actualYear}, ${actualHour}:${actualMinutes}`;
 }
 
@@ -143,6 +149,32 @@ function updateOtherDays(day) {
   return
 }
 
+function sixDayApi(coords){
+  let apiSixDays = `https://api.openweathermap.org/data/2.5/onecall?lat=${coords.lat}&lon=${coords.lon}&appid=${apiKey}&units=metric`;
+  axios.get(apiSixDays).then(sixDayForecast);
+}
+
+function sixDayForecast(response){
+  console.log(response.data.daily);
+  let baseDay = newDate.getDay();
+  let sixDaysMaxTemp = document.querySelectorAll(".max-temp");
+  let sixDaysMinTemp = document.querySelectorAll(".min-temp");
+  for(let i = 0; i < sixDaysMaxTemp.length; i++) {
+    baseDay = baseDay + 1;
+    if(baseDay === 7){
+      baseDay = 0;
+    }
+    sixDaysMaxTemp[i].innerHTML = Math.round(response.data.daily[baseDay].temp.max);
+    sixDaysMinTemp[i].innerHTML = Math.round(response.data.daily[baseDay].temp.min);
+    /*if (multipleConditions.includes(response)) {
+    } else {
+      if (otherConditions.includes(response)) {
+        let position = otherConditions.indexOf(response);
+      }
+    }*/
+  }
+}
+
 function showCurrentPosition() {
   navigator.geolocation.getCurrentPosition(showPosition);
 }
@@ -155,6 +187,10 @@ function showPosition(position) {
     city = resp.data.name;
     searchCity(city);
   });
+}
+
+function searchFavoriteCity(){
+  alert("hola");
 }
 
 let apiKey = `2a2676887289368652de121a9db03637`;
@@ -170,5 +206,8 @@ form.addEventListener("submit", searchForm);
 
 let clickCurrentLocation = document.querySelector("#location-button");
 clickCurrentLocation.addEventListener("click", showCurrentPosition);
+
+let favoriteCities = document.querySelector(".favorites");
+favoriteCities.addEventListener("click", searchFavoriteCity);
 
 searchCity("Monterrey");
