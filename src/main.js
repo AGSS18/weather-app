@@ -55,6 +55,7 @@ function temporaryInfo(response) {
   let descriptionElement = document.querySelector(".condition");
   let timeElement = document.querySelector(".main-day");
   let iconElement = document.querySelector(".icon-temp");
+  sixDayApi(response.data.coord);
 
   celsiusTemp = response.data.main.temp;
 
@@ -65,7 +66,6 @@ function temporaryInfo(response) {
   descriptionElement.innerHTML = response.data.weather[0].description;
   timeElement.innerHTML = updateMainTime(response.data.dt * 1000);
   iconElement.innerHTML = updateMainIcon(response.data.weather[0].main);
-  sixDayApi(response.data.coord);
 }
 
 function updateMainTime(syncDate) {
@@ -152,13 +152,14 @@ function updateOtherDays(day) {
 function sixDayApi(coords){
   let apiSixDays = `https://api.openweathermap.org/data/2.5/onecall?lat=${coords.lat}&lon=${coords.lon}&appid=${apiKey}&units=metric`;
   axios.get(apiSixDays).then(sixDayForecast);
+  return
 }
 
 function sixDayForecast(response){
-  console.log(response.data.daily);
   let baseDay = newDate.getDay();
   let sixDaysMaxTemp = document.querySelectorAll(".max-temp");
   let sixDaysMinTemp = document.querySelectorAll(".min-temp");
+  let updateIcons = document.querySelectorAll(".other-icons");
   for(let i = 0; i < sixDaysMaxTemp.length; i++) {
     baseDay = baseDay + 1;
     if(baseDay === 7){
@@ -166,6 +167,7 @@ function sixDayForecast(response){
     }
     sixDaysMaxTemp[i].innerHTML = Math.round(response.data.daily[baseDay].temp.max);
     sixDaysMinTemp[i].innerHTML = Math.round(response.data.daily[baseDay].temp.min);
+    updateIcons[i].innerHTML = updateMainIcon(response.data.daily[baseDay].weather[0].main);
     /*if (multipleConditions.includes(response)) {
     } else {
       if (otherConditions.includes(response)) {
@@ -173,6 +175,7 @@ function sixDayForecast(response){
       }
     }*/
   }
+  return
 }
 
 function showCurrentPosition() {
