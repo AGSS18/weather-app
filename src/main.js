@@ -186,26 +186,6 @@ function showPosition(position) {
   });
 }
 
-function searchFavoriteCity(){
-  //alert(response);
-}
-
-//function oneFav(){
-  //console.log(firstFav.innerHTML);
-//}
-
-function editFavoriteCities() {
-  let favorites = ["Paris", "Lisbon", "Sydney", "San Francisco", "Monterrey"];
-  let cut = prompt("Which city do you want to eliminate?");
-  if(favorites.includes(cut)){
-    let cutting = favorites.indexOf(cut);
-    console.log(cutting);
-    let newCity = prompt("Which city do you want to add?");
-    favorites[cutting] = newCity;
-    console.log(favorites);
-  }
-}
-
 let apiKey = `2a2676887289368652de121a9db03637`;
 
 let celsiusTemp = null;
@@ -244,9 +224,6 @@ let fifthFav = document.querySelector(".city-five");
 fifthFav.addEventListener("click", function(){
   searchCity(fifthFav.innerHTML);
 });
-
-let editCity = document.querySelector(".edit");
-editCity.addEventListener("click", editFavoriteCities);
 
 searchCity("Monterrey");
 
