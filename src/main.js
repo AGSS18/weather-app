@@ -26,6 +26,8 @@ let multipleConditions = [
   "Squal",
   "Tornado"];
 
+let multipleConditionsImages = [`url("../media/mist.jpg")`, `url("../media/mist-2.jpg")`, `url("../media/mist-3.jfif")`, `url("../media/mist-4.jfif")`, `url("../media/mist-5.jfif")`];
+
 let otherConditions = [
   "Clear",
   "Clouds",
@@ -33,6 +35,20 @@ let otherConditions = [
   "Snow",
   "Drizzle",
   "Rain"];
+
+let otherConditionsImages = {
+  "Clear" : [`url("../media/sunny.jpg")`, `url("../media/sunny_2.jfif")`, `url("../media/sunny_3.jfif")`, `url("../media/sunny_4.jfif")`, `url("../media/sunny_5.jfif")`],
+
+  "Clouds" : [`url("../media/cloud.jpg")`, `url("../media/cloud_2.jfif")`, `url("../media/cloud_3.jfif")`, `url("../media/cloud_4.jfif")`, `url("../media/cloud_5.jfif")`],
+
+  "Thunderstorm" : [`url("../media/thunder.jfif")`, `url("../media/thunder_2.jfif")`, `url("../media/thunder_3.jfif")`, `url("../media/thunder_4.jfif")`, `url("../media/thunder_5.jfif")`],
+
+  "Snow" : [`url("../media/snowy.jpeg")`, `url("../media/snowy_2.jfif")`, `url("../media/snowy_3.jfif")`, `url("../media/snowy_4.jfif")`, `url("../media/snowy_5.jfif")`],
+
+  "Drizzle" : [`url("../media/drizzle.jfif")`, `url("../media/drizzle_2.jpg")`, `url("../media/drizzle_3.jfif")`, `url("../media/drizzle_4.jfif")`, `url("../media/drizzle_5.jfif")`],
+
+  "Rain" : [`url("../media/rain.jfif")`, `url("../media/rain_2.jfif")`, `url("../media/rain_3.jfif")`, `url("../media/rain_4.jfif")`, `url("../media/rain_5.jfif")`]
+}
 
 let otherConditionsIcons = [
   `<i class="fas fa-sun"></i>`,
@@ -54,6 +70,7 @@ function temporaryInfo(response) {
   let descriptionElement = document.querySelector(".condition");
   let timeElement = document.querySelector(".main-day");
   let iconElement = document.querySelector(".icon-temp");
+  let backgroundImages = document.querySelector(".one-day-temp-container");
   sixDayApi(response.data.coord);
 
   celsiusTemp = response.data.main.temp;
@@ -65,6 +82,19 @@ function temporaryInfo(response) {
   descriptionElement.innerHTML = response.data.weather[0].description;
   timeElement.innerHTML = updateMainTime(response.data.dt * 1000);
   iconElement.innerHTML = updateMainIcon(response.data.weather[0].main);
+  backgroundImages.style.backgroundImage = updateBackgroundImage(response.data.weather[0].main);
+}
+
+function updateBackgroundImage(main){
+  let random = Math.floor(Math.random() * 5);
+  if(multipleConditions.includes(main)){
+    console.log(random);
+    return multipleConditionsImages[random];
+  } else {
+    if(otherConditions.includes(main)){
+      return otherConditionsImages[main][random];
+    }
+  }
 }
 
 function updateMainTime(syncDate) {
@@ -121,17 +151,21 @@ function changeUnits(event) {
     for (let i = 0; i < unitsElements.length; i++) {
       unitsElements[i].innerHTML = "F";
     }
-    let tempElements = document.querySelector("#main-temp");
-    celsiusOperation = Math.round((celsiusTemp * 9 / 5) + 32);
-    tempElements.innerHTML = celsiusOperation;
+    let tempElements = document.querySelectorAll(".temperature");
+    for (let i = 0; i < tempElements.length; i++) {
+      let operation = Math.round((tempElements[i].innerHTML * 9) / 5 + 32);
+      tempElements[i].innerHTML = operation;
+    }
   } else {
     let unitsElements = document.querySelectorAll(".units");
     for (let i = 0; i < unitsElements.length; i++) {
       unitsElements[i].innerHTML = "C";
     }
-    let tempElements = document.querySelector("#main-temp");
-    let fahrenheitOperation = Math.round((celsiusOperation - 32) * 5 / 9);
-    tempElements.innerHTML = fahrenheitOperation;
+    let tempElements = document.querySelectorAll(".temperature");
+    for (let i = 0; i < tempElements.length; i++) {
+      let operation = Math.round(((tempElements[i].innerHTML - 32) * 5) / 9);
+      tempElements[i].innerHTML = operation;
+    }
   }
 }
 

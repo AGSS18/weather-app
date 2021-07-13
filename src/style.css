@@ -115,7 +115,8 @@ li[class^="city-"]:hover {
   padding: 0px 0px 50px;
   text-align: center;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
-  background-image: url("muestra_1.JPG");
+  background-image: url("../media/deffault.JPG");
+  background-repeat: no-repeat;
   background-size: cover;
 }
 
