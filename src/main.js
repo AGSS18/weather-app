@@ -77,12 +77,12 @@ function temporaryInfo(response) {
 
   tempElement.innerHTML = Math.round(celsiusTemp);
   cityElement.innerHTML = response.data.name;
+  backgroundImages.style.backgroundImage = updateBackgroundImage(response.data.weather[0].main);
   windElement.innerHTML = Math.round(response.data.wind.speed);
   humidityElement.innerHTML = response.data.main.humidity;
   descriptionElement.innerHTML = response.data.weather[0].description;
   timeElement.innerHTML = updateMainTime(response.data.dt * 1000);
   iconElement.innerHTML = updateMainIcon(response.data.weather[0].main);
-  backgroundImages.style.backgroundImage = updateBackgroundImage(response.data.weather[0].main);
 }
 
 function updateBackgroundImage(main){
