@@ -43,7 +43,6 @@ let otherConditionsIcons = [
   `<i class="fas fa-cloud-rain"></i>`];
 
 function temporaryInfo(response) {
-  console.log(response);
   let resetUnits = document.querySelectorAll(".units");
   for (let i = 0; i < resetUnits.length; i++) {
     resetUnits[i].innerHTML = "C";

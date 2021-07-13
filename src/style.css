@@ -96,7 +96,7 @@ li[class^="city-"]:hover {
   background-color: transparent;
   color: rgb(172, 170, 170);
   position: relative;
-  left: -15px;
+  left: -18px;
   transition: all 200ms ease-in-out;
 }
 
