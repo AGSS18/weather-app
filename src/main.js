@@ -168,12 +168,6 @@ function sixDayForecast(response){
     sixDaysMaxTemp[i].innerHTML = Math.round(response.data.daily[baseDay].temp.max);
     sixDaysMinTemp[i].innerHTML = Math.round(response.data.daily[baseDay].temp.min);
     updateIcons[i].innerHTML = updateMainIcon(response.data.daily[baseDay].weather[0].main);
-    /*if (multipleConditions.includes(response)) {
-    } else {
-      if (otherConditions.includes(response)) {
-        let position = otherConditions.indexOf(response);
-      }
-    }*/
   }
   return
 }
@@ -193,7 +187,23 @@ function showPosition(position) {
 }
 
 function searchFavoriteCity(){
-  alert("hola");
+  //alert(response);
+}
+
+//function oneFav(){
+  //console.log(firstFav.innerHTML);
+//}
+
+function editFavoriteCities() {
+  let favorites = ["Paris", "Lisbon", "Sydney", "San Francisco", "Monterrey"];
+  let cut = prompt("Which city do you want to eliminate?");
+  if(favorites.includes(cut)){
+    let cutting = favorites.indexOf(cut);
+    console.log(cutting);
+    let newCity = prompt("Which city do you want to add?");
+    favorites[cutting] = newCity;
+    console.log(favorites);
+  }
 }
 
 let apiKey = `2a2676887289368652de121a9db03637`;
@@ -210,7 +220,33 @@ form.addEventListener("submit", searchForm);
 let clickCurrentLocation = document.querySelector("#location-button");
 clickCurrentLocation.addEventListener("click", showCurrentPosition);
 
-let favoriteCities = document.querySelector(".favorites");
-favoriteCities.addEventListener("click", searchFavoriteCity);
+let firstFav = document.querySelector(".city-one");
+firstFav.addEventListener("click", function(){
+  searchCity(firstFav.innerHTML);
+});
+
+let secondFav = document.querySelector(".city-two");
+secondFav.addEventListener("click", function(){
+  searchCity(secondFav.innerHTML);
+});
+
+let thirdFav = document.querySelector(".city-three");
+thirdFav.addEventListener("click", function(){
+  searchCity(thirdFav.innerHTML);
+});
+
+let fourthFav = document.querySelector(".city-four");
+fourthFav.addEventListener("click", function(){
+  searchCity(fourthFav.innerHTML);
+});
+
+let fifthFav = document.querySelector(".city-five");
+fifthFav.addEventListener("click", function(){
+  searchCity(fifthFav.innerHTML);
+});
+
+let editCity = document.querySelector(".edit");
+editCity.addEventListener("click", editFavoriteCities);
 
 searchCity("Monterrey");
+
