@@ -221,9 +221,6 @@ function showPosition(position) {
 
 let apiKey = `2a2676887289368652de121a9db03637`;
 
-let celsiusTemp = null;
-let celsiusOperation = null;
-
 let linkUnitsChange = document.querySelector("#principal-unit");
 linkUnitsChange.addEventListener("click", changeUnits);
 
